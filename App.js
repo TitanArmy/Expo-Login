@@ -49,12 +49,12 @@ function App() {
       {isLoggedIn ? <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Location" component={Location} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={Users} options={{ headerShown: false }} />
+        <Stack.Screen name="Users" component={Users} options={{ headerShown: false }} />
       </Stack.Navigator> :
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Sign Up" component={SignUpScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Home" component={Users} options={{ headerShown: false }} />
+          <Stack.Screen name="Users" component={Users} options={{ headerShown: false }} />
 
         </Stack.Navigator>}
     </NavigationContainer>

@@ -1,49 +1,66 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity} from "react-native";
-import * as Facebook from "expo-facebook";
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
+
+import * as firebase from 'firebase';
+import * as Facebook from 'expo-facebook';
+
+// Your web app's Firebase configuration
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCflhxjfW0Kf1NG-T51i2LzJd7SSC47BaI",
+    authDomain: "projectexpo-fce16.firebaseapp.com",
+    databaseURL: "https://projectexpo-fce16-default-rtdb.firebaseio.com",
+    projectId: "projectexpo-fce16",
+    storageBucket: "projectexpo-fce16.appspot.com",
+    messagingSenderId: "513477020718",
+    appId: "1:513477020718:web:bee1c1ad733e7b9dbb23bf",
+    measurementId: "G-QR3TBQN02D"
+  };
+// Initialize Firebase
+if (!firebase.apps.length)
+  firebase.initializeApp(firebaseConfig);
+
+// Listen for authentication state to change.
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log("Logged in with user: ", user);
+  } else {
+    console.log('Not logged in')
+  }
+});
 
 export default function App() {
-  const [user, setUser] = useState(null);
-
-  const signUpFacebook = async () => {
+  // TODO: Implementation
+  const handleAuth = async () => {
     try {
-      await Facebook.initializeAsync("988070555215597");
+      await Facebook.initializeAsync('988070555215597'); // enter your Facebook App Id 
       const { type, token } = await Facebook.logInWithReadPermissionsAsync({
-        permissions: ["public_profile", "email"],
+        permissions: ['public_profile', 'email'],
       });
-      if (type === "success") {
+      if (type === 'success') {
         // Get the user's name using Facebook's Graph API
-        const response = await fetch(
-          `https://graph.facebook.com/me?fields=id,name,picture.type(large),email&access_token=${token}`
-        );
-        // console.log((await response.json()).name);
-        const data = await response.json();
-        setUser(data);
+        const credential = firebase.auth.FacebookAuthProvider.credential(token);
+        firebase.auth().signInWithCredential(credential)
+          .then(user => {
+            console.log('Logged in successfully', user)
+          })
+          .catch((error) => {
+            console.log('Error occurred ', error)
+          });
       } else {
         // type === 'cancel'
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`);
     }
-  };
+  }
 
   return (
     <View style={styles.container}>
-      {user ? (
-        <View style={styles.fotoContainer}>
-          <Image style={styles.image} source={{ uri: user.picture.data.url }} />
-          <Text style={styles.text}>{user.name}</Text>
-          <Text style={styles.text}>{user.email}</Text>
-        </View>
-      ) : (
-        <TouchableOpacity onPress={signUpFacebook}>
-      <Image 
-        style={{width:200,height:30}}
-        source={require('../../assets/fb.png')} />
-   </TouchableOpacity>
-      )}
+      <TouchableOpacity onPress={handleAuth} >
+        <Text>Facebook Login</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -51,11 +68,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f4f4f4",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  fotoContainer: {},
-  image: { width: 200, height: 200 },
-  text: { fontSize: 18, textAlign: "center" },
 });
