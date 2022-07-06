@@ -20,6 +20,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "example.expo.LoginApp",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
