@@ -9,6 +9,7 @@ import Location from './screens/src/Location'
 import Users from './screens/components/Users'
 import firebase from 'firebase/app';
 import "firebase/auth";
+import faceBookScreen from './screens/components/Facebooks';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,8 +55,7 @@ function App() {
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Sign Up" component={SignUpScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Users" component={Users} options={{ headerShown: false }} />
-
+          <Stack.Screen name="faceBookScreen" component={faceBookScreen} options={{ headerShown: false }} />
         </Stack.Navigator>}
     </NavigationContainer>
   );

@@ -1,128 +1,84 @@
-// import React from "react";
-// import { StyleSheet, View, Button } from "react-native";
-// import * as Google from "expo-google-app-auth";
+import * as React from 'react';
+import { Text, View, TouchableOpacity, StyleSheet,Image } from 'react-native';
+import * as Google from 'expo-google-app-auth'
+import * as firebase from 'firebase';
 
-// const LoginScreen = ({ navigation }) => {
-//   const signInAsync = async () => {
-//     // console.log("LoginScreen.js 6 | loggin in");
-//     try {
-//       const { type, user } = await Google.logInAsync({
-       
-//         androidClientId: `513477020718-j9c5dqpq19e0ejb1vl4g5co085ik97mb.apps.googleusercontent.com`,
-//       });
-
-//       if (type === "success") {
-//         // Then you can use the Google REST API
-//         console.log("LoginScreen.js 17 | success, navigating to profile");
-//         navigation.navigate("Users", { user});
-//       }
-//     } catch (error) {
-//       console.log("LoginScreen.js 19 | error with login", error);
-//     }
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Button title="Login with Google" onPress={signInAsync} />
-//     </View>
-//   );
-// };
-
-// export default LoginScreen;
-
-// const styles = StyleSheet.create({});
+const Config = {
+    apiKey: "AIzaSyCflhxjfW0Kf1NG-T51i2LzJd7SSC47BaI",
+    authDomain: "projectexpo-fce16.firebaseapp.com",
+    databaseURL: "https://projectexpo-fce16-default-rtdb.firebaseio.com",
+    projectId: "projectexpo-fce16",
+    storageBucket: "projectexpo-fce16.appspot.com",
+    messagingSenderId: "513477020718",
+    appId: "1:513477020718:web:bee1c1ad733e7b9dbb23bf",
+    measurementId: "G-QR3TBQN02D"
+  };
 
 
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
 
+    if (!firebase.apps.length) {
+      firebase.initializeApp(Config);
+    }
+  }
 
-import React, { useEffect, useState } from 'react';
-import { AsyncStorage, Button, StyleSheet, Text, View } from 'react-native';
-import * as AppAuth from 'expo-app-auth';
+  onPress = async () => {
+    try {
+      const result = await Google.logInAsync({
+        androidClientId: '513477020718-j9c5dqpq19e0ejb1vl4g5co085ik97mb.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      });
 
-export default function App() {
-  let [authState, setAuthState] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      let cachedAuth = await getCachedAuthAsync();
-      if (cachedAuth && !authState) {
-        setAuthState(cachedAuth);
+      if (result.type === 'success') {
+        const { idToken, accessToken } = result;
+        const credential = firebase.auth.GoogleAuthProvider.credential(idToken,accessToken);
+        
+        firebase
+          .auth()
+          .signInAndRetrieveDataWithCredential(credential)
+          .then(res => {
+            console.log("loggedIn:",res)
+            // user res, create your user, do whatever you want
+          })
+          .catch(error => {
+            console.log('firebase cred err:', error.message);
+          });
+      } else {
+        return { cancelled: true };
       }
-    })();
-  }, []);
+    } catch (err) {
+      console.log('err:', err);
+    }
+  };
 
-  return (
-    <View style={styles.container}>
-      <Text>Expo AppAuth Example</Text>
-      <Button
-        title="Sign In with Google "
-        onPress={async () => {
-          const _authState = await signInAsync();
-          setAuthState(_authState);
-        }}
-      />
-      <Button
-        title="Sign Out "
-        onPress={async () => {
-          await signOutAsync(authState);
-          setAuthState(null);
-        }}
-      />
-      <Text>{JSON.stringify(authState, null, 2)}</Text>
-    </View>
-  );
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.button} onPress={this.onPress}>
+        <Image style={{height: 20, width: 220}}
+          source={require('../../assets/google.png')}/>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    bottom:90,
+    padding: 8,
+  },
+  button: {
+    marginHorizontal: 90,
+   
+    justifyContent: 'center',
+    
+    
+  },
+  text: {
+    textAlign: 'center',
   },
 });
-
-const config = {
-  issuer: 'https://accounts.google.com',
-  clientId: '513477020718-j9c5dqpq19e0ejb1vl4g5co085ik97mb.apps.googleusercontent.com',
-  scopes: ['profile'],
-};
-
-let StorageKey = '@MyApp:CustomGoogleOAuthKey';
-
-
-export async function signInAsync() {
-  let authState = await AppAuth.authAsync(config);
-  await cacheAuthAsync(authState);
-  console.log('signInAsync', authState);
-  return authState;
-}
-
-async function cacheAuthAsync(authState) {
-  return await AsyncStorage.setItem(StorageKey, JSON.stringify(authState));
-}
-
-export async function getCachedAuthAsync() {
-  let value = await AsyncStorage.getItem(StorageKey);
-  let authState = JSON.parse(value);
-  console.log('getCachedAuthAsync', authState);
-  if (authState) {
-    if (checkIfTokenExpired(authState)) {
-      return refreshAuthAsync(authState);
-    } else {
-      return authState;
-    }
-  }
-  return null;
-}
-
-function checkIfTokenExpired({ accessTokenExpirationDate }) {
-  return new Date(accessTokenExpirationDate) < new Date();
-}
-
-async function refreshAuthAsync({ refreshToken }) {
-  let authState = await AppAuth.refreshAsync(config, refreshToken);
-  console.log('refreshAuth', authState);
-  await cacheAuthAsync(authState);
-  return authState;
-}

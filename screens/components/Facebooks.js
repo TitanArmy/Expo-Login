@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
 
 
 import * as firebase from 'firebase';
@@ -30,7 +30,7 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-export default function App() {
+export default function App({navigation}) {
   // TODO: Implementation
   const handleAuth = async () => {
     try {
@@ -44,6 +44,7 @@ export default function App() {
         firebase.auth().signInWithCredential(credential)
           .then(user => {
             console.log('Logged in successfully', user)
+            navigation.navigate('Home');
           })
           .catch((error) => {
             console.log('Error occurred ', error)
@@ -59,7 +60,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleAuth} >
-        <Text>Facebook Login</Text>
+        <Image style={{height: 20, width: 220}}
+          source={require('../../assets/fb.png')}/>
       </TouchableOpacity>
     </View>
   );
@@ -67,7 +69,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
