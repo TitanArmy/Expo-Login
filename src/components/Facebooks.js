@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
 import * as firebase from 'firebase';
 import * as Facebook from 'expo-facebook';
+import { LogBox } from 'react-native';
 
 // Your web app's Firebase configuration
 
@@ -29,6 +30,8 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 export default function App({navigation}) {
+
+  LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
   // TODO: Implementation
   const handleAuth = async () => {
     try {
@@ -72,3 +75,73 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import * as React from 'react';
+// import * as WebBrowser from 'expo-web-browser';
+// import * as Facebook from 'expo-auth-session/providers/facebook';
+// import { ResponseType } from 'expo-auth-session';
+// import { initializeApp } from 'firebase/app';
+// import { getAuth, FacebookAuthProvider, signInWithCredential } from 'firebase/auth';
+// import { Button } from 'react-native';
+// import firebase from 'firebase';
+
+// const Config = {
+//   apiKey: "AIzaSyCflhxjfW0Kf1NG-T51i2LzJd7SSC47BaI",
+//   authDomain: "projectexpo-fce16.firebaseapp.com",
+//   databaseURL: "https://projectexpo-fce16-default-rtdb.firebaseio.com",
+//   projectId: "projectexpo-fce16",
+//   storageBucket: "projectexpo-fce16.appspot.com",
+//   messagingSenderId: "513477020718",
+//   appId: "1:513477020718:web:bee1c1ad733e7b9dbb23bf",
+//   measurementId: "G-QR3TBQN02D"
+// };
+// // Initialize Firebase
+// if (!firebase.apps.length) {
+//   firebase.initializeApp(Config);
+// }
+
+// WebBrowser.maybeCompleteAuthSession();
+
+// export default function App() {
+//   const [request, response, promptAsync] = Facebook.useAuthRequest({
+//     responseType: ResponseType.Token,
+//     clientId: '988070555215597',
+//   });
+
+//   React.useEffect(() => {
+//     if (response?.type === 'success') {
+//       const { access_token } = response.params;
+      
+//       const auth = getAuth();
+//       const provider = new FacebookAuthProvider();
+//       const credential = provider.credential(access_token);
+//       // Sign in with the credential from the Facebook user.
+//       signInWithCredential(auth, credential);
+//     }
+//   }, [response]);
+
+//   return (
+//     <Button
+//       disabled={!request}
+//       title="SIGNIN WITH FACEBOOK"
+//       onPress={() => {
+//         promptAsync();
+//       }}
+//     />
+//   );
+// }

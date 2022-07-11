@@ -1,5 +1,6 @@
+ import * as firebase from 'firebase';
 
-export const Config = {
+  const firebaseConfig = {
     apiKey: "AIzaSyCflhxjfW0Kf1NG-T51i2LzJd7SSC47BaI",
     authDomain: "projectexpo-fce16.firebaseapp.com",
     databaseURL: "https://projectexpo-fce16-default-rtdb.firebaseio.com",
@@ -10,4 +11,6 @@ export const Config = {
     measurementId: "G-QR3TBQN02D"
   };
 
-  
+firebase.initializeApp(firebaseConfig);
+
+export default firebase;

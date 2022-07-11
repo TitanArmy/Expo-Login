@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from "./screens/src/Login"
-import HomeScreen from "./screens/src/Home"
-import SignUpScreen from "./screens/src/SignUp"
-import Location from './screens/src/Location'
-import Users from './screens/components/Users'
+import LoginScreen from "./src/Screens/Login"
+import HomeScreen from "./src/Screens/Home"
+import SignUpScreen from "./src/Screens/SignUp"
+import Location from './src/Screens/Location'
+import Users from './src/components/Users'
 import firebase from 'firebase/app';
-import "firebase/auth";
-import faceBookScreen from './screens/components/Facebooks';
+import faceBookScreen from './src/components/Facebooks';
+import Second from './src/Screens/Second';
+import { LogBox } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+
+
+  LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
@@ -51,10 +55,11 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Location" component={Location} options={{ headerShown: false }} />
         <Stack.Screen name="Users" component={Users} options={{ headerShown: false }} />
+        <Stack.Screen name="Second" component={Second} options={{ headerShown: false }} />
       </Stack.Navigator> :
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Sign Up" component={SignUpScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
           <Stack.Screen name="faceBookScreen" component={faceBookScreen} options={{ headerShown: false }} />
         </Stack.Navigator>}
     </NavigationContainer>
