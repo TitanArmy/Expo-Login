@@ -5,8 +5,8 @@ export function getRegion(latitude, longitude, distance) {
     const longitudeDelta = distance / (oneDegreeOfLatitudeInMeters * Math.cos(latitude * (Math.PI / 180)));
 
     return {
-        latitude,
-        longitude,
+        latitude: 28.539927134661628,
+        longitude: 77.34059570765518,
         latitudeDelta,
         longitudeDelta
     }
