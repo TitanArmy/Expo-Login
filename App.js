@@ -1,14 +1,16 @@
+
+
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from "./src/Screens/Login"
-import HomeScreen from "./src/Screens/Home"
+import Home from "./src/Screens/Home"
 import SignUpScreen from "./src/Screens/SignUp"
 import Location from './src/Screens/Location'
 import Users from './src/components/Users'
 import firebase from 'firebase/app';
-import faceBookScreen from './src/components/Facebooks';
+import FacebookScreen from './src/components/FacebookScreen';
 import Second from './src/Screens/Second';
 import { LogBox } from 'react-native';
 
@@ -52,7 +54,7 @@ function App() {
   return (
     <NavigationContainer>
       {isLoggedIn ? <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Location" component={Location} options={{ headerShown: false }} />
         <Stack.Screen name="Users" component={Users} options={{ headerShown: false }} />
         <Stack.Screen name="Second" component={Second} options={{ headerShown: false }} />
@@ -60,7 +62,8 @@ function App() {
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="faceBookScreen" component={faceBookScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="faceBookScreen" component={FacebookScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         </Stack.Navigator>}
     </NavigationContainer>
   );

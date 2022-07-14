@@ -9,6 +9,7 @@ import {
   View,
   Text,
   Image,
+  Alert
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import MapView, { Marker, Callout } from "react-native-maps";
@@ -19,7 +20,7 @@ import * as Location from "expo-location";
 
 import moment from "moment";
 
-export default class App extends Component {
+export default class Home extends Component {
   state = {
     location: {
       latitude: 28.539927134661628,
@@ -94,6 +95,21 @@ export default class App extends Component {
     }
   }
 
+  showAlert1() {  
+    Alert.alert(  
+        'Alert Title',  
+        'My Alert Msg',  
+        [  
+            {  
+                text: 'Cancel',  
+                onPress: () => console.log('Cancel Pressed'),  
+                style: 'cancel',  
+            },  
+            {text: 'OK', onPress: () => console.log('OK Pressed')},  
+        ]  
+    );  
+}  
+
   getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
 
@@ -116,6 +132,7 @@ export default class App extends Component {
   render() {
     let { latitude, longitude } = this.state.location;
     // console.log(this.state.location, "welfjkernhfjwrehficwhed");
+    
     return (
       <>
         <View style={styles.container}>
@@ -156,15 +173,19 @@ export default class App extends Component {
               { zIndex: 1, marginTop: "85%", marginLeft: "45%" },
             ]}
           >
+            <TouchableOpacity
+             onPress={this.showAlert1}  
+           >
             <Image
               source={require("../../assets/marker.png")}
               style={{ width: 50 }}
               resizeMode="contain"
             ></Image>
+            </TouchableOpacity>
           </View>
           <MapView
             ref={(ref) => (this.map = ref)}
-            style={styles.map}
+            style={[styles.map]}
             initialRegion={getRegion(
               latitude,
               longitude,  
@@ -178,7 +199,7 @@ export default class App extends Component {
           >
             {this.state.messages.map((message, index) => {
               let { latitude, longitude, text, timestamp} = message;
-
+              
               return (
                 <Marker
                   ref={(ref) => (this.marker = ref)}
@@ -283,3 +304,4 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
 });
+

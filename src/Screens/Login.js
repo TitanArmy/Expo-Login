@@ -4,7 +4,7 @@ import TextBox from "../components/TextBox";
 import Btn from "../components/Btn";
 import firebase from "firebase/app";
 import "firebase/auth";
-import Facebooks from "../components/Facebooks";
+import FacebookScreen from "../components/FacebookScreen";
 import Googles from '../components/Googles'
 import { LogBox } from 'react-native';
 
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
 
 export default function Loginscreen({ navigation }) {
   
+
   const [values, setValues] = useState({
     email: "",
     pwd: "",
@@ -42,7 +43,7 @@ export default function Loginscreen({ navigation }) {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, pwd)
-      .then(() => {})
+      .then(() => {navigation.navigate('Home')})
       .catch((error) => {
         alert(error.message);
         // ..
@@ -75,13 +76,13 @@ export default function Loginscreen({ navigation }) {
 
         <Btn onClick={() => Login()} title="Login" style={{ width: "48%" }} />
         <Btn
-          onClick={() => navigation.navigate("Sign Up")}
+          onClick={() => navigation.navigate("SignUp")}
           title="Sign Up"
           style={{ width: "48%", backgroundColor: "#344869" }}
         />
       </View>
       <View style={{flexDirection:'row',justifyContent:'space-between',marginHorizontal:15,marginVertical:60,alignItems:'center'}}>
-        <Facebooks/>
+        <FacebookScreen navigation={navigation}/>
       </View>
 
       <View style={{flexDirection:'row',justifyContent:'space-between',marginHorizontal:15,marginVertical:60,alignItems:'center'}}>

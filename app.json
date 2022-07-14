@@ -17,15 +17,25 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "example.expo.LoginApp"
+      "supportsTablet": true
     },
     "android": {
-      "package": "example.expo.LoginApp",
-      "googleServicesFile": "./google-services.json",
+      "permissions":[
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.vishalmisra.LoginApp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDrIeVhBYoiAPcPUQ0tK-AZ-06FAW6PS-E"
+        }
       }
     },
     "web": {
