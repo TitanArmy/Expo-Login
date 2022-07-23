@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,Image,Button } from 'react-native';
 import * as firebase from 'firebase';
 import * as Facebook from 'expo-facebook';
 import { LogBox } from 'react-native';
@@ -25,14 +25,14 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     // console.log("Logged in with user: ", user);
   } else {
-    console.log('Not logged in')
+    // console.log('Not logged in')
   }
 });
 
-export default function FacebookScreen({navigation}) {
+export default function FacebookScreen() {
   LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
   // TODO: Implementation
-  const handleAuth = async ({navigation}) => {
+  const handleAuth = async () => {
     try {
       await Facebook.initializeAsync('988070555215597'); // enter your Facebook App Id 
       const { type, token } = await Facebook.logInWithReadPermissionsAsync({
@@ -44,9 +44,9 @@ export default function FacebookScreen({navigation}) {
         firebase.auth().signInWithCredential(credential)
           .then(user => {
             // console.log('Logged in successfully', user)
-            navigation.navigate('Home')
+            // navigation.navigate('Home')
           })
-          .then((user) => {navigation.navigate('Home')})
+         
           .catch((error) => {
             console.log('Error occurred ', error)
           });
@@ -57,14 +57,23 @@ export default function FacebookScreen({navigation}) {
       alert(`Facebook Login Error: ${message}`);
     }
   }
+  const colorpicker = '#2E4DA7';
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={()=>handleAuth({navigation})} >
-        <Image style={{height: 20, width: 220}}
-          source={require('../../assets/fb.png')}/>
-      </TouchableOpacity>
-    </View>
+    // <View style={styles.container}>
+    //   <TouchableOpacity onPress={()=>()} >
+    //     <Image style={{height: 20, width: 220}}
+    //       source={require('../../assets/fb.png')}/>
+    //   </TouchableOpacity>
+    // </View>
+      <Button 
+     
+      color={colorpicker}
+      title=" SIGN-UP WITH FACEBOOK"
+      onPress={() => {
+        handleAuth();
+        }}
+    />
   );
 }
 

@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -49,8 +47,6 @@ function App() {
     }
   });
 
-
-
   return (
     <NavigationContainer>
       {isLoggedIn ? <Stack.Navigator>
@@ -58,12 +54,12 @@ function App() {
         <Stack.Screen name="Location" component={Location} options={{ headerShown: false }} />
         <Stack.Screen name="Users" component={Users} options={{ headerShown: false }} />
         <Stack.Screen name="Second" component={Second} options={{ headerShown: false }} />
-      </Stack.Navigator> :
+        </Stack.Navigator> :
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
           <Stack.Screen name="faceBookScreen" component={FacebookScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+          {/* <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} /> */}
         </Stack.Navigator>}
     </NavigationContainer>
   );

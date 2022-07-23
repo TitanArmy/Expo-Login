@@ -2,9 +2,15 @@
   "expo": {
     "name": "LoginApp",
     "slug": "LoginApp",
+    "scheme": "com.vishalmisra.loginapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "facebookScheme": "fb988070555215597",
+    "facebookAppId": "988070555215597",
+    "facebookDisplayName": "LoginApp",
+    "facebookAutoLogAppEventsEnabled": true,
+    "facebookAdvertiserIDCollectionEnabled": false,
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -17,10 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vishalmisra.LoginApp"
     },
     "android": {
-      "permissions":[
+      "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
         "CAMERA",
@@ -34,7 +41,10 @@
       "package": "com.vishalmisra.LoginApp",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDrIeVhBYoiAPcPUQ0tK-AZ-06FAW6PS-E"
+          "apiKey": "AIzaSyBPoK_3b6gNDz8DN-tiJuOOVuy78x9ZMhw"
+        },
+        "googleSignIn": {
+          "apiKey": "AIzaSyBPoK_3b6gNDz8DN-tiJuOOVuy78x9ZMhw"
         }
       }
     },

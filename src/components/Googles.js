@@ -3,9 +3,9 @@ import * as WebBrowser from 'expo-web-browser';
 import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import firebase from 'firebase';
-import { Button,StyleSheet } from 'react-native';
-
-
+import { Alert, Button,StyleSheet, TouchableOpacity,Image } from 'react-native';
+import * as AppAuth from 'expo-app-auth';
+import { initializeApp } from 'firebase/app';
 
 const Config = {
   apiKey: "AIzaSyCflhxjfW0Kf1NG-T51i2LzJd7SSC47BaI",
@@ -22,34 +22,41 @@ if (!firebase.apps.length) {
   firebase.initializeApp(Config);
 }
 
-WebBrowser.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession('https://auth.expo.io/@vishalmisra/LoginApp');
 
 export default function App() {
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
-    {
+      {
       clientId: '513477020718-9l7r57nku76f7rm16fmbd4st590304ff.apps.googleusercontent.com',
+      androidClientId:'513477020718-tu1opfdkav42q6l0adatnavd9eqbsqd5.apps.googleusercontent.com',
+      // redirectUrl: `${AppAuth.OAuthRedirect}:/oauthredirect`,
       },
   );
 
   React.useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
-      
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
       firebase.auth().signInWithCredential(credential);
     }
-  }, [response]);
+  }, 
+  [response]
+  );
 
   return (
-
+   <>
+    <TouchableOpacity style={{alignItems:'center',bottom:70}}>
     <Button 
       disabled={(!request)}
-      title=" SignIN With Google"
+      color={'orange'}
+      title="   SIGN-UP WITH GOOGLE   "
       onPress={() => {
         promptAsync();
         }}
     />
+    </TouchableOpacity>
+      </>
   );
 }
 
@@ -61,3 +68,7 @@ const styles = StyleSheet.create({
   },
 });
 
+
+// redirectUri: makeRedirectUri({
+//   scheme: 'com.vishalmisra.LoginApp'
+//   }),

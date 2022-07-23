@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet,ScrollView,TouchableOpacity,Image } from "react-native";
+import { Text, View, StyleSheet,ScrollView, TouchableOpacity,Image } from "react-native";
 import TextBox from "../components/TextBox";
 import Btn from "../components/Btn";
 import firebase from "firebase/app";
 import "firebase/auth";
-import FacebookScreen from "../components/FacebookScreen";
-import Googles from '../components/Googles'
 import { LogBox } from 'react-native';
 
 
@@ -19,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Loginscreen({ navigation }) {
+export default function SigninScreen({ navigation }) {
   
 
   const [values, setValues] = useState({
@@ -81,22 +79,14 @@ export default function Loginscreen({ navigation }) {
           style={{ width: "48%", backgroundColor: "#344869" }}
         />
       </View>
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginHorizontal:15,marginVertical:60,alignItems:'center'}}>
-        <FacebookScreen navigation={navigation}/>
+      <View style={{marginTop:140}}>
+        <TouchableOpacity onPress={()=> navigation.navigate('Logins')}>
+        <Image style={{width:40,height:40}}
+        source={require('../../assets/back.png')}>
+        </Image>
+        </TouchableOpacity>
       </View>
-
-      <View style={{flexDirection:'row',justifyContent:'space-between',marginHorizontal:15,marginVertical:60,alignItems:'center'}}>
-        <Googles/>
-      </View>
-      <View>
-      <TouchableOpacity style={{alignItems:'center',alignSelf:'center',bottom:30}}
-        // onPress={()=>{navigation.navigate('Home')}}
-      >
-      <Image source={require('../../assets/next.png')} />
-      </TouchableOpacity>
-      </View>
-
     </View>
-  
   );
 }
+

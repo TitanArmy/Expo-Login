@@ -9,7 +9,7 @@ import {
   View,
   Text,
   Image,
-  Alert
+  Alert,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import MapView, { Marker, Callout } from "react-native-maps";
@@ -17,20 +17,17 @@ import firebase from "firebase/app";
 import { getRegion } from "../helper/Map";
 import * as Location from "expo-location";
 
-
 import moment from "moment";
 
 export default class Home extends Component {
   state = {
     location: {
-      latitude: 28.539927134661628,
-      longitude: 77.34059570765518,
+      latitude: 28.5398,
+      longitude: 77.3408,
     },
     messageText: null,
     sendButtonActive: false,
     messages: [],
-  
-  
   };
 
   componentDidMount() {
@@ -55,17 +52,17 @@ export default class Home extends Component {
           }
         });
       });
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          console.log('User email: ', user.uid);
-        }
-      });
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     // console.log("User email: ", user.uid);
+    //   }
+    // });
   }
 
   onChangeText(messageText) {
     this.setState({
       messageText: messageText,
-      sendButtonActive: messageText.length > 0,
+      sendButtonActive: messageText.length > -1,
     });
   }
 
@@ -79,8 +76,6 @@ export default class Home extends Component {
           latitude: this.state.location.latitude,
           longitude: this.state.location.longitude,
           timestamp: firebase.database.ServerValue.TIMESTAMP,
-         
-          
         })
         .then(() => {
           this.setState({ messageText: null });
@@ -95,20 +90,16 @@ export default class Home extends Component {
     }
   }
 
-  showAlert1() {  
-    Alert.alert(  
-        'Alert Title',  
-        'My Alert Msg',  
-        [  
-            {  
-                text: 'Cancel',  
-                onPress: () => console.log('Cancel Pressed'),  
-                style: 'cancel',  
-            },  
-            {text: 'OK', onPress: () => console.log('OK Pressed')},  
-        ]  
-    );  
-}  
+  showAlert1() {
+    Alert.alert("Hello Alert", "I m Here , Move Me Anywhere You Want", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+  }
 
   getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -132,7 +123,7 @@ export default class Home extends Component {
   render() {
     let { latitude, longitude } = this.state.location;
     // console.log(this.state.location, "welfjkernhfjwrehficwhed");
-    
+const pinColor ='#DAA520';
     return (
       <>
         <View style={styles.container}>
@@ -154,9 +145,7 @@ export default class Home extends Component {
               </TouchableOpacity>
             </View>
             <View style={{ marginHorizontal: 15 }}>
-              <TouchableOpacity
-                onPress={() => firebase.auth().signOut()}
-              >
+              <TouchableOpacity onPress={() => firebase.auth().signOut()}>
                 <Image
                   source={require("../../assets/back1.png")}
                   style={{
@@ -173,24 +162,18 @@ export default class Home extends Component {
               { zIndex: 1, marginTop: "85%", marginLeft: "45%" },
             ]}
           >
-            <TouchableOpacity
-             onPress={this.showAlert1}  
-           >
-            <Image
-              source={require("../../assets/marker.png")}
-              style={{ width: 50 }}
-              resizeMode="contain"
-            ></Image>
+            <TouchableOpacity onPress={this.showAlert1}>
+              <Image
+                source={require("../../assets/marker.png")}
+                style={{ width: 50 }}
+                resizeMode="contain"
+              ></Image>
             </TouchableOpacity>
           </View>
           <MapView
             ref={(ref) => (this.map = ref)}
             style={[styles.map]}
-            initialRegion={getRegion(
-              latitude,
-              longitude,  
-              160000
-            )}
+            initialRegion={getRegion(latitude, longitude, 160000)}
             onRegionChange={(region) =>
               this.setState({
                 location: region,
@@ -198,14 +181,15 @@ export default class Home extends Component {
             }
           >
             {this.state.messages.map((message, index) => {
-              let { latitude, longitude, text, timestamp} = message;
-              
+              let { latitude, longitude, text, timestamp } = message;
+
               return (
                 <Marker
                   ref={(ref) => (this.marker = ref)}
                   key={index}
                   identifier={"marker_" + index}
                   coordinate={{ latitude, longitude }}
+                  pinColor ={pinColor}
                 >
                   <Callout>
                     <View>
@@ -230,11 +214,12 @@ export default class Home extends Component {
               borderRadius: 19,
             }}
           >
-            <TouchableOpacity 
-            onPress={this.onSendPress.bind(this)}
-            style={{ borderRadius:30 }}>
+            <TouchableOpacity
+              onPress={this.onSendPress.bind(this)}
+              style={{ borderRadius: 30 }}
+            >
               <Text
-                style={{ color: "white", alignSelf: "center", marginTop:8}}
+                style={{ color: "white", alignSelf: "center", marginTop: 8 }}
               >
                 Drop
               </Text>
@@ -304,4 +289,3 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
 });
-
