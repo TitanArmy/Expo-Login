@@ -208,7 +208,7 @@ export default class Home extends Component {
               position: "absolute",
               alignSelf: "center",
               bottom: 10,
-              backgroundColor: "#000080",
+              backgroundColor: "orange",
               width: 140,
               height: 40,
               borderRadius: 19,
@@ -221,7 +221,7 @@ export default class Home extends Component {
               <Text
                 style={{ color: "white", alignSelf: "center", marginTop: 8 }}
               >
-                Drop
+               Pick Up
               </Text>
             </TouchableOpacity>
           </View>

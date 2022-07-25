@@ -52,19 +52,24 @@ export default class Home extends Component {
           }
         });
       });
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     // console.log("User email: ", user.uid);
-    //   }
-    // });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log("User email: ", user.uid);
+      }
+    });
   }
 
   onChangeText(messageText) {
     this.setState({
       messageText: messageText,
-      sendButtonActive: messageText.length > -1,
+      sendButtonActive: messageText.length > 0,
     });
   }
+
+  onLoading(){
+    this.setState({})
+  }
+
 
   onSendPress() {
     if (this.state.sendButtonActive) {
@@ -123,7 +128,7 @@ export default class Home extends Component {
   render() {
     let { latitude, longitude } = this.state.location;
     // console.log(this.state.location, "welfjkernhfjwrehficwhed");
-const pinColor ='#DAA520';
+const pinColor ='orange';
     return (
       <>
         <View style={styles.container}>
