@@ -63,7 +63,7 @@ export default function SignUpScreen({ navigation }) {
         onChangeText={(text) => handleChange(text, "pwd")}
       />
       <TextBox
-        placeholder="Confirme Password"
+        placeholder="Confirm Password"
         secureTextEntry={true}
         onChangeText={(text) => handleChange(text, "pwd2")}
       />
@@ -81,7 +81,7 @@ export default function SignUpScreen({ navigation }) {
           style={{ width: "48%" }}
         />
         <Btn
-          onClick={() => navigation.replace("Login")}
+          onClick={() => navigation.replace("Signin")}
           title="Login"
           style={{ width: "48%", backgroundColor: "#344869" }}
         />

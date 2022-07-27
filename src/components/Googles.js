@@ -3,7 +3,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import firebase from 'firebase';
-import { Alert, Button,StyleSheet, TouchableOpacity,Image } from 'react-native';
+import { Alert, Button,StyleSheet, TouchableOpacity,Image,Text } from 'react-native';
 import * as AppAuth from 'expo-app-auth';
 import { initializeApp } from 'firebase/app';
 
@@ -46,16 +46,19 @@ export default function App() {
 
   return (
    <>
-    <TouchableOpacity style={{alignItems:'center',bottom:70}}>
-    <Button 
-      disabled={(!request)}
-      color={'orange'}
-      title="   SIGN-UP WITH GOOGLE   "
-      onPress={() => {
-        promptAsync();
+    <TouchableOpacity
+        style={{backgroundColor:'orange',alignItems:'center',marginHorizontal:35,borderRadius:30,padding:17,width:320,height:55}}
+        disabled={!request}
+        onPress={() => {
+          promptAsync();
         }}
-    />
-    </TouchableOpacity>
+      >
+        
+        <Text style={{color:'#FFF9FF',fontWeight:'bold',fontSize:18,textAlign:'center'}}>REGISTER WITH GOOGLE</Text>
+        <Image 
+        style={{justifyContent:'center',right:120,bottom:16,width:18,height:18}}
+        source={require('../../assets/gmail.png')} />
+      </TouchableOpacity>
       </>
   );
 }

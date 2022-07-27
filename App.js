@@ -11,6 +11,7 @@ import firebase from 'firebase/app';
 import FacebookScreen from './src/components/FacebookScreen';
 import Second from './src/Screens/Second';
 import { LogBox } from 'react-native';
+import Signin from './src/Screens/Signin'
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,7 @@ function App() {
           <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
           <Stack.Screen name="faceBookScreen" component={FacebookScreen} options={{ headerShown: false }} />
           {/* <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} /> */}
+          <Stack.Screen name="Signin" component={Signin} options={{ headerShown: false }} />
         </Stack.Navigator>}
     </NavigationContainer>
   );

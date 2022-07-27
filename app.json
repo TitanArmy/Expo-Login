@@ -8,7 +8,7 @@
     "icon": "./assets/icon.png",
     "facebookScheme": "fb988070555215597",
     "facebookAppId": "988070555215597",
-    "facebookDisplayName": "LoginApp",
+    "facebookDisplayName": "project",
     "facebookAutoLogAppEventsEnabled": true,
     "facebookAdvertiserIDCollectionEnabled": false,
     "splash": {

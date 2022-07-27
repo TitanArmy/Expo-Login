@@ -80,7 +80,7 @@ export default function SigninScreen({ navigation }) {
         />
       </View>
       <View style={{marginTop:140}}>
-        <TouchableOpacity onPress={()=> navigation.navigate('Logins')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('Login')}>
         <Image style={{width:40,height:40}}
         source={require('../../assets/back.png')}>
         </Image>
