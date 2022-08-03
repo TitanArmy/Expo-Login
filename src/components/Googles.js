@@ -63,13 +63,6 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 
 // redirectUri: makeRedirectUri({

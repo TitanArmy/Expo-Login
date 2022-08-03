@@ -49,7 +49,11 @@ function App() {
   });
 
   return (
-    <NavigationContainer>
+    <NavigationContainer 
+    // theme={{colors:{
+    // background:'#121212'
+    // }}}
+    >
       {isLoggedIn ? <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Location" component={Location} options={{ headerShown: false }} />
